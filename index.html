@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>My Universe 💗</title>
+
+
+<style>
+
+/* =========================
+   พื้นฐาน
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #02010a;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================
+   จักรวาล
+========================= */
+
+.space {
+
+    width: 100vw;
+    height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #100b27 0%,
+            #050414 45%,
+            #010107 100%
+        );
+
+}
+
+
+/* =========================
+   ฝุ่นละอองดาว
+========================= */
+
+.particle {
+
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 4px white;
+
+    opacity: 0.7;
+
+    transition:
+        left 2.8s cubic-bezier(.5,0,.2,1),
+        top 2.8s cubic-bezier(.5,0,.2,1),
+        transform 2.8s ease,
+        opacity 2.8s ease;
+
+}
+
+
+/* ทำให้ฝุ่นบางดวงกระพริบ */
+
+.particle:nth-child(3n) {
+
+    animation:
+        blink 2.5s infinite alternate;
+
+}
+
+@keyframes blink {
+
+    from {
+        opacity: 0.25;
+    }
+
+    to {
+        opacity: 0.9;
+    }
+
+}
+
+
+/* =========================
+   ข้อความด้านบน
+========================= */
+
+.top-message {
+
+    position: absolute;
+
+    top: 55px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 90%;
+
+    text-align: center;
+
+    z-index: 20;
+
+    color: #ff9bcf;
+
+    font-size: clamp(
+        18px,
+        3vw,
+        30px
+    );
+
+    font-weight: 500;
+
+    line-height: 1.5;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+
+        0 0 8px #ff6fbd,
+        0 0 20px rgba(255,105,180,0.6);
+
+}
+
+
+/* =========================
+   กล่องเปิด
+========================= */
+
+.open-box {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 30;
+
+    width: 150px;
+    height: 75px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    border: 1px solid rgba(
+        255,
+        190,
+        225,
+        0.8
+    );
+
+    background:
+        rgba(
+            255,
+            150,
+            210,
+            0.08
+        );
+
+    color: #ffd6ec;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,120,190,0.5),
+
+        inset 0 0 15px
+        rgba(255,150,210,0.1);
+
+    transition:
+        0.4s;
+
+}
+
+
+.open-box:hover {
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.1);
+
+    box-shadow:
+
+        0 0 30px
+        rgba(255,130,200,0.8),
+
+        0 0 60px
+        rgba(180,100,255,0.4);
+
+}
+
+
+/* =========================
+   หัวใจ
+========================= */
+
+.heart {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 360px;
+    height: 320px;
+
+    transform:
+        translate(-50%, -45%)
+        scale(0);
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transition:
+
+        transform 1.5s
+        cubic-bezier(.2,1.5,.4,1),
+
+        opacity 1.2s ease;
+
+}
+
+
+/* ใช้เส้น SVG วาดหัวใจ */
+
+.heart svg {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+
+}
+
+
+/* เส้นหัวใจ */
+
+.heart-path {
+
+    fill: none;
+
+    stroke: #a875ff;
+
+    stroke-width: 4;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+    filter:
+
+        drop-shadow(
+            0 0 8px #9b5cff
+        )
+
+        drop-shadow(
+            0 0 20px #8a4dff
+        );
+
+}
+
+
+/* ตอนเปิดหัวใจ */
+
+.space.open .heart {
+
+    transform:
+        translate(-50%, -45%)
+        scale(1);
+
+    opacity: 1;
+
+}
+
+
+/* =========================
+   ข้อความในหัวใจ
+========================= */
+
+.inside-message {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.5);
+
+    width: 250px;
+
+    text-align: center;
+
+    color: white;
+
+    z-index: 40;
+
+    opacity: 0;
+
+    transition:
+
+        opacity 1.5s ease 1s,
+
+        transform 1.5s
+        ease 1s;
+
+}
+
+
+.space.open
+.inside-message {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+
+}
+
+
+.inside-message h2 {
+
+    color: #e4c9ff;
+
+    font-size: 25px;
+
+    margin-bottom: 18px;
+
+    text-shadow:
+
+        0 0 10px #a875ff,
+        0 0 25px #8a4dff;
+
+}
+
+
+.inside-message p {
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,0.5);
+
+}
+
+
+/* =========================
+   หลังเปิด
+========================= */
+
+.space.open
+.open-box {
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.3);
+
+    transition:
+        0.8s;
+
+}
+
+
+.space.open
+.top-message {
+
+    opacity: 0;
+
+    transition:
+        1s;
+
+}
+
+
+/* =========================
+   มือถือ
+========================= */
+
+@media
+(max-width: 600px) {
+
+    .heart {
+
+        width: 310px;
+        height: 280px;
+
+    }
+
+    .inside-message {
+
+        width: 210px;
+
+    }
+
+    .inside-message h2 {
+
+        font-size: 21px;
+
+    }
+
+    .inside-message p {
+
+        font-size: 15px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div
+    class="space"
+    id="space"
+>
+
+
+    <!-- ข้อความด้านบน -->
+
+    <div class="top-message">
+
+        จ๊ะเอ๋ แฟนเค้า 💗<br>
+
+        ลองกดข้อความตรงกลางข้างล่างนี่สิ
+
+    </div>
+
+
+
+    <!-- ฝุ่นดาวจะถูกสร้างตรงนี้ -->
+
+
+
+    <!-- ปุ่มเปิด -->
+
+    <div
+        class="open-box"
+        id="openButton"
+        onclick="openUniverse()"
+    >
+
+        เปิด ✦
+
+    </div>
+
+
+
+    <!-- หัวใจ -->
+
+    <div class="heart">
+
+        <svg
+            viewBox="0 0 400 360"
+        >
+
+            <path
+                class="heart-path"
+                d="
+                M200 330
+
+                C180 310 55 230 55 125
+
+                C55 55 145 35 200 105
+
+                C255 35 345 55 345 125
+
+                C345 230 220 310 200 330
+
+                Z
+                "
+            />
+
+        </svg>
+
+    </div>
+
+
+
+    <!-- ข้อความในหัวใจ -->
+
+    <div
+        class="inside-message"
+    >
+
+        <h2>
+            💜 สำหรับเธอ 💜
+        </h2>
+
+        <p>
+
+            ตรงนี้คือข้อความ
+            ที่เธอสามารถเขียนเองได้
+
+            <br><br>
+
+            เปลี่ยนข้อความตรงนี้
+            เป็นข้อความของเธอได้เลย
+
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   สร้างฝุ่นละออง
+========================= */
+
+const space =
+    document.getElementById("space");
+
+
+const particleCount = 450;
+
+
+for (
+    let i = 0;
+    i < particleCount;
+    i++
+) {
+
+    const particle =
+        document.createElement("div");
+
+
+    particle.className =
+        "particle";
+
+
+    let x;
+    let y;
+
+
+    /*
+       ไม่ให้ฝุ่นอยู่ตรงบริเวณ
+       ข้อความด้านบน
+    */
+
+    do {
+
+        x = Math.random() * 100;
+        y = Math.random() * 100;
+
+    }
+
+    while (
+
+        (
+            x > 5 &&
+            x < 95 &&
+            y < 28
+        )
+
+        ||
+
+        (
+            x > 25 &&
+            x < 75 &&
+            y > 38 &&
+            y < 62
+        )
+
+    );
+
+
+    particle.style.left =
+        x + "%";
+
+
+    particle.style.top =
+        y + "%";
+
+
+    /*
+       สุ่มขนาดเล็กมาก
+    */
+
+    const size =
+        Math.random() * 2 + 0.5;
+
+
+    particle.style.width =
+        size + "px";
+
+
+    particle.style.height =
+        size + "px";
+
+
+    /*
+       เพิ่มฝุ่นเข้าเว็บ
+    */
+
+    space.appendChild(
+        particle
+    );
+
+}
+
+
+
+/* =========================
+   เปิดจักรวาล
+========================= */
+
+function openUniverse() {
+
+
+    const particles =
+        document.querySelectorAll(
+            ".particle"
+        );
+
+
+    /*
+       ดึงฝุ่นทุกดวง
+       เข้าหาจุดกึ่งกลาง
+    */
+
+    particles.forEach(
+        particle => {
+
+            particle.style.left =
+                "50%";
+
+            particle.style.top =
+                "50%";
+
+            particle.style.transform =
+                "scale(3)";
+
+            particle.style.opacity =
+                "0.8";
+
+        }
+    );
+
+
+    /*
+       เริ่มฉากหัวใจ
+    */
+
+    setTimeout(() => {
+
+        space.classList.add(
+            "open"
+        );
+
+    }, 2600);
+
+}
+
+</script>
+
+
+</body>
+
+</html>
